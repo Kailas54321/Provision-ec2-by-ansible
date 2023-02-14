@@ -1,0 +1,36 @@
+- name: Ansible Play
+  hosts: localhost
+  tasks:
+  - name:   launching AWS instance using Ansible
+
+    ec2:
+      key_name: ngn
+      region: us-east-1
+      instance_type: t2.micro
+      image: ami-09cd747c78a9add63
+      volumes: 
+         - device_name: /dev/sda1
+           volume_type: gp2
+           volume_size: 10
+      group: default
+      wait: yes
+      vpc_subnet_id: subnet-04f97f5dd266364d6
+      assign_public_ip: true
+      instance_tags:
+        Name: Demo_server
+      
+  - name: install postgreSQL client on Demo_server
+    become: yes  
+    become_user: root
+    apt:
+     name: ['postgresql-client', 'zip', 's3cmd']
+     state: present
+
+  - name: create files and put on 
+    command: echo "welcome to s3" > dump.sql
+          
+  - name: zip dump.sql
+    command: "zip -e dump.zip dump.sql"
+
+
+
