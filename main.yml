@@ -7,14 +7,14 @@
       key_name: ngn
       region: us-east-1
       instance_type: t2.micro
-      image: ami-09cd747c78a9add63
+      image: ami-09cd747c
       volumes: 
          - device_name: /dev/sda1
            volume_type: gp2
            volume_size: 10
       group: default
       wait: yes
-      vpc_subnet_id: subnet-04f97f5dd266364d6
+      vpc_subnet_id: subnet-04f97
       assign_public_ip: true
       instance_tags:
         Name: Demo_server
